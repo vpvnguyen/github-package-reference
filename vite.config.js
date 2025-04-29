@@ -9,9 +9,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'), // Your main entry file
-      name: 'index', // UMD name (optional unless using UMD)
+      formats: ['es', 'cjs'], // Output formats
       fileName: (format) => `index.${format}.js`, // Output filenames
-      formats: ['es', 'cjs'], // or ['es', 'umd'] if you want UMD
     },
     rollupOptions: {
       external: ['react'], // external dependencies (don't bundle them)
