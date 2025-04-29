@@ -1,1 +1,5 @@
-console.log("Hello, Github Packages!");
+const hello = () => {
+  console.log("Hello, Github Packages!");
+}
+
+export default hello;
