@@ -1,0 +1,22 @@
+{
+  "name": "@vpvnguyen/github-package-reference",
+  "version": "1.0.0",
+  "main": "index.js",
+  "publishConfig": {
+    "@vpvnguyen:registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vpvnguyen/github-package-reference.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vpvnguyen/github-package-reference/issues"
+  },
+  "homepage": "https://github.com/vpvnguyen/github-package-reference#readme",
+  "description": ""
+}
