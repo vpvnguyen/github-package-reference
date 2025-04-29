@@ -1,11 +1,12 @@
 {
   "name": "@vpvnguyen/github-package-reference",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index.js",
   "publishConfig": {
     "@vpvnguyen:registry": "https://npm.pkg.github.com"
   },
   "scripts": {
+    "build": "vite build",
     "test": "exit 0"
   },
   "repository": {
@@ -18,5 +19,8 @@
     "url": "https://github.com/vpvnguyen/github-package-reference/issues"
   },
   "homepage": "https://github.com/vpvnguyen/github-package-reference#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "vite": "^6.3.3"
+  }
 }
