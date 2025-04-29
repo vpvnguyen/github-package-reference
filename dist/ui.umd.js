@@ -1,1 +1,0 @@
-(function(e,o){typeof exports=="object"&&typeof module<"u"?module.exports=o():typeof define=="function"&&define.amd?define(o):(e=typeof globalThis<"u"?globalThis:e||self,e.ui=o())})(this,function(){"use strict";return()=>{console.log("Hello, Github Packages!")}});

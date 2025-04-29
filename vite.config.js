@@ -1,17 +1,24 @@
 import { defineConfig } from 'vite';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'index.js'),
-      name: 'ui',
-      fileName: (format) => `ui.${format}.js`
-    }
+      entry: path.resolve(__dirname, 'src/index.js'), // Your main entry file
+      name: 'index', // UMD name (optional unless using UMD)
+      fileName: (format) => `index.${format}.js`, // Output filenames
+      formats: ['es', 'cjs'], // or ['es', 'umd'] if you want UMD
+    },
+    rollupOptions: {
+      external: ['react', 'vue'], // external dependencies (don't bundle them)
+      output: {
+        globals: {
+          react: 'React',
+          vue: 'Vue'
+        }
+      }
+    },
+    outDir: 'dist', // Optional, default is 'dist'
+    emptyOutDir: true, // Clear the output directory before building
   }
 });
-

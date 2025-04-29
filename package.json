@@ -1,7 +1,14 @@
 {
   "name": "@vpvnguyen/github-package-reference",
   "version": "1.0.2",
-  "main": "index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js"
+    }
+  },
   "publishConfig": {
     "@vpvnguyen:registry": "https://npm.pkg.github.com"
   },
