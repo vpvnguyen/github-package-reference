@@ -1,5 +1,11 @@
 # @vpvnguyen/github-package-reference
 
+## 1.0.10
+
+### Patch Changes
+
+- aeb9dda: fix pipeline
+
 ## 1.0.9
 
 ### Patch Changes
