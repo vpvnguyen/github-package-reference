@@ -1,0 +1,29 @@
+name: "Tag Version If Missing"
+description: "Tags the current version if it doesn't already exist remotely"
+
+inputs:
+  version:
+    description: "The version to tag (without the 'v' prefix)"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Check and tag version
+      shell: bash
+      run: |
+        VERSION=${{ inputs.version }}
+
+        echo "🔍 Checking if tag v$VERSION exists remotely..."
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git fetch --tags
+
+        if git ls-remote --tags origin "refs/tags/v$VERSION" | grep -q .; then
+          echo "✅ Tag v$VERSION already exists on remote. Skipping."
+          exit 0
+        fi
+
+        echo "🏷️ Creating and pushing tag v$VERSION"
+        git tag "v$VERSION"
+        git push origin "v$VERSION"

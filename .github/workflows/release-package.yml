@@ -1,4 +1,4 @@
-name: Release with Changesets
+name: Release and Publish with Changesets
 # Changesets + GitHub Release + Changelog + Skips if No Changes
 on:
   push:
@@ -53,19 +53,10 @@ jobs:
           fi
 
       # Step 3: Create and push Git tag
-      - name: Tag new release
-        if: env.RELEASE_NEEDED == 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          
-          if git tag --list "v${VERSION}" | grep -q .; then
-            echo "⚠️ Tag v${VERSION} already exists. Skipping tag creation."
-          else
-            echo "🏷️ Tagging v${VERSION}"
-            git tag v${VERSION}
-            git push origin v${VERSION}
-          fi
+      - name: Tag version if needed
+        uses: ./.github/actions/tag-version
+        with:
+          version: ${{ env.VERSION }}
 
       # Step 4: Collect changelog from .changeset markdowns
       - name: Generate changelog body
@@ -77,14 +68,11 @@ jobs:
           cat .changeset/*.md >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
-      # Step 5: Create GitHub Release
-      - name: Create GitHub Release
+      - name: |
+          Run Build
+          Publish to Github Packages
         if: env.RELEASE_NEEDED == 'true'
-        uses: softprops/action-gh-release@v1
+        id: changesets
+        uses: changesets/action@v1
         with:
-          tag_name: v${{ env.VERSION }}
-          name: Release v${{ env.VERSION }}
-          body: ${{ env.CHANGELOG }}
-          files: dist/*  # Attach your built assets here
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          publish: npm run build
