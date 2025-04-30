@@ -1,4 +1,10 @@
-name: Release
+name: Release Package
+# This workflow is triggered on pushes to the main branch 
+# and creates a release for publishing Github Packages.
+
+env:
+  HUSKY: 0
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 on:
   push:
@@ -8,7 +14,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  packages: write
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -25,26 +30,26 @@ jobs:
         with:
           node-version: 20
           registry-url: https://npm.pkg.github.com/
-          
+
       - name: Clean Install Dependencies
         run: npm run clean:install
 
-      - name: |
-          Create release pull request
-          Run prepublishOnly script
-          Run build script
-          Verify changeset exists
-          Publish package
-        id: changesets
+      - name: Run Lint
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm run test
+
+      - name: Verify changesets
+        run: npm run changeset:verify
+
+      - name: Create Release Pull Request
         uses: changesets/action@v1
         with:
-          publish: npm run changeset:publish
-          setupGitUser: true
-          createGithubReleases: true
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          title: "Release Package v${{ steps.get_version.outputs.version }}"
+          env:
+            NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          id: get_version
+          run: echo "version=$(node -p \"require('./package.json').version\")" >> $GITHUB_ENV
 
-      - name: Notify on Publish
-        if: steps.changesets.outputs.published == 'true'
-        run: echo "New version published!"
+

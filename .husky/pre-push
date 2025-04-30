@@ -1,0 +1,2 @@
+echo "[HUSKY/pre-push] npm run changeset"
+npm run changeset

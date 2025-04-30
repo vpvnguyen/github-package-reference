@@ -1,0 +1,62 @@
+name: Publish Package
+# This workflow is triggered when a new release is created.
+# It publishes the package to Github Packages and creates a GitHub release.
+
+env:
+  HUSKY: 0
+  NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      
+      - name: Clean Install Dependencies
+        run: npm run clean:install
+
+      - name: Run Lint
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm run test
+
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://npm.pkg.github.com/
+
+      - name: Clean Install Dependencies
+        run: npm run clean:install
+
+      # - run: npm run build
+      # - run: npm publish
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      
+      - name: |
+          Run Build
+          Publish to Github Packages
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: npm run build
