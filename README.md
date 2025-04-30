@@ -154,6 +154,9 @@ To enable this feature set `.changesets/config.json`:
 
 doc: https://github.com/changesets/action
 
+Update workflow permissions for `GITHUB_TOKEN` if needed to read, write, create and approve pull requests
+(Repo > Settings > Actions > General)
+
 ### Without Publishing
 
 ```yml
@@ -261,29 +264,32 @@ Manage multiple packages in a `packages/` directory with:
 Directory structure:
 .
 ├── packages/
-│   ├── pkg-a/
-│   ├── pkg-b/
+│ ├── pkg-a/
+│ ├── pkg-b/
 ├── .changeset/
-│   └── config.json
+│ └── config.json
 ├── package.json
 
-
 #### Internal Dependencies
+
 If `pkg-a` depends on `pkg-b`, setting `"updateInternalDependencies": "patch"` means that any version bump in `pkg-b` will result in a patch bump in `pkg-a`.
 
 #### Linked Versions
-If you want linked versioning (pkg-a` and `pkg-b` always release the same version), use:
+
+If you want linked versioning (pkg-a`and`pkg-b` always release the same version), use:
 
 ```json
 "linked": [["pkg-a", "pkg-b"]]
 ```
 
 #### Ignoring Internal Tools
+
 ```json
 "ignore": ["internal-cli", "storybook-config"]
 ```
 
 Example `.changeset/config.json`:
+
 ```json
 {
   "$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
