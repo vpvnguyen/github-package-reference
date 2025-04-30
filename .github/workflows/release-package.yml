@@ -8,6 +8,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  packages: write
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -37,6 +38,8 @@ jobs:
         uses: changesets/action@v1
         with:
           publish: npm run changeset:publish
+          setupGitUser: true
+          createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
