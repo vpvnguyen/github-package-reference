@@ -1,34 +1,41 @@
-name: Node.js Package
+name: Release
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  test:
+  release:
+    name: Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm ci
-      - run: npm test
+      - name: Checkout Repo
+        uses: actions/checkout@v4
 
-  publish-gpr:
-    needs: test
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: https://npm.pkg.github.com/
-      - run: npm ci
-      - run: npm run build
-      - run: npm publish
+
+      - name: Clean Install Dependencies
+        run: npm run clean:install
+
+      - name: |
+          Create release pull request
+          Run prepublishOnly script
+          Run build script
+          Verify changeset exists
+          Publish package
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: npm run changeset:publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+      - name: Notify on Publish
+        if: steps.changesets.outputs.published == 'true'
+        run: echo "New version published!"
