@@ -1,5 +1,11 @@
 # @vpvnguyen/github-package-reference
 
+## 1.0.17
+
+### Patch Changes
+
+- 6909d10: use github packages
+
 ## 1.0.16
 
 ### Patch Changes
