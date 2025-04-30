@@ -1,5 +1,11 @@
 # @vpvnguyen/github-package-reference
 
+## 1.0.16
+
+### Patch Changes
+
+- c9b19cf: add publish
+
 ## 1.0.15
 
 ### Patch Changes
