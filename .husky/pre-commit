@@ -1,4 +1,6 @@
 if [ -z "$(git status --porcelain .changeset)" ]; then
+  echo ""
   echo "[HUSKY/pre-commit] No changeset found! Please run 'npx changeset' to create one."
+  echo ""
   exit 1
 fi
