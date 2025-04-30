@@ -1,2 +1,5 @@
-echo "[HUSKY/pre-push] npm run changeset"
-npm run changeset
+echo "[HUSKY/pre-push] npm run test"
+npm run test
+
+echo "[HUSKY/pre-push] npm run changeset:version"
+npm run changeset:version

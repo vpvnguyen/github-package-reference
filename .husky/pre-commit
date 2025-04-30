@@ -1,2 +1,2 @@
-echo "[HUSKY/pre-commit] npm run test"
-npm run test
+echo "[HUSKY/pre-commit] npm run changeset"
+npm run changeset

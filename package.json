@@ -21,7 +21,6 @@
     "changeset:publish": "npx changeset publish",
     "changeset:verify": "npx changeset status --since=main",
     "prerelease": "npm run test && npm run build",
-    "prepublishOnly": "npm run build",
     "build": "vite build",
     "lint": "exit 0",
     "test": "exit 0",
