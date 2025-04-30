@@ -1,6 +1,6 @@
 {
   "name": "@vpvnguyen/github-package-reference",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "source": "src/index.ts",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",

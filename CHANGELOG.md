@@ -1,5 +1,11 @@
 # @vpvnguyen/github-package-reference
 
+## 1.0.18
+
+### Patch Changes
+
+- 0d0cf91: set publish workflow
+
 ## 1.0.17
 
 ### Patch Changes
