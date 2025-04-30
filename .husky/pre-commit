@@ -1,2 +1,4 @@
-echo "[HUSKY/pre-commit] npm run changeset"
-npm run changeset
+if [ -z "$(git status --porcelain .changeset)" ]; then
+  echo "[HUSKY/pre-commit] No changeset found! Please run 'npx changeset' to create one."
+  exit 1
+fi
