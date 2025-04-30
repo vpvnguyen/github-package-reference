@@ -1,5 +1,11 @@
 # @vpvnguyen/github-package-reference
 
+## 1.0.12
+
+### Patch Changes
+
+- 6e068e2: gracefully exit if tag exists
+
 ## 1.0.11
 
 ### Patch Changes
