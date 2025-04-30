@@ -58,8 +58,14 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git tag v${{ env.VERSION }}
-          git push origin v${{ env.VERSION }}
+          
+          if git tag --list "v${VERSION}" | grep -q .; then
+            echo "⚠️ Tag v${VERSION} already exists. Skipping tag creation."
+          else
+            echo "🏷️ Tagging v${VERSION}"
+            git tag v${VERSION}
+            git push origin v${VERSION}
+          fi
 
       # Step 4: Collect changelog from .changeset markdowns
       - name: Generate changelog body
