@@ -1,5 +1,11 @@
 # @vpvnguyen/github-package-reference
 
+## 1.0.15
+
+### Patch Changes
+
+- merged main
+
 ## 1.0.14
 
 ### Patch Changes
